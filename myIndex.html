@@ -1,0 +1,49 @@
+<!-- I think that this is a more appropriate way to structure the code when it's all jammed into a single index.html file. An even better approach would involve abstracting the components into separate jsx files. -->
+<html>
+  <body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/jsx">
+        function App() {
+            const [likes, setLikes] = React.useState(0);
+            const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton'];
+
+            function handleClick() {
+                console.log('Liked!');
+                setLikes(prevLikes => prevLikes + 1);
+            }
+
+            return <HomePage names={names} likes={likes} handleClick={handleClick} />;
+        }
+
+        const app = document.getElementById('app');
+
+        function Header({ title }) {
+            return <h1>{title}</h1>;
+        }
+
+
+        function HomePage({ names, likes, handleClick }) {
+            return (
+            <>
+            <Header title="Develop. Preview. Ship." />
+            <ul>
+            {names.map((name) => (
+                <li key={name}>{name}</li>
+            ))}
+            </ul>
+            <button onClick={handleClick}>Like</button>
+            <p>{likes} Likes</p>
+            </>
+          );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    
+    </script>
+  </body>
+</html>
